@@ -1,17 +1,11 @@
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
-
+const adminRoutes = require('./routes/admin');
 // Parsing the file
 app.use(bodyParser.urlencoded({extended:false}));
-app.get('/product',(req,res,next) =>{
-    console.log(req.body);
-    res.redirect('/');
-})
-app.use('/add-product',(req,res,next)=>{
-    console.log('In the middleware');
-    res.send('<form action="/product" method="POST"><input type="text"><button type="submit">Add Product</button></form>');
-})
+
+app.use(adminRoutes);
 
 app.use('/',(req,res,next) => {
     console.log('In another middleware');
