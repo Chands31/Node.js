@@ -1,15 +1,17 @@
+const path = require('path');
 const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');
 const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 // Parsing the file
 app.use(bodyParser.urlencoded({extended:false}));
 
-app.use(adminRoutes);
+app.use('/admin',adminRoutes);
+app.use('/shop',shopRoutes);
 
-app.use('/',(req,res,next) => {
-    console.log('In another middleware');
-    res.send('<h1> Hello From Express');
+app.use((req,res,next)=>{
+   res.sendFile(path.join(__dirname,'views','404.html'));
 })
 
 app.listen(3000);
